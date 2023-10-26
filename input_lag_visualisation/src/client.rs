@@ -113,9 +113,11 @@ pub fn main() {
         if delta.keys.contains(&KeyCode::Up) || delta.keys.contains(&KeyCode::W) {
             entity::mutate_component(entity::resources(), delay(), |d| *d += DELAY_MS_STEP);
         } else if delta.keys.contains(&KeyCode::Down) || delta.keys.contains(&KeyCode::S) {
-            entity::mutate_component(entity::resources(), delay(), |d| *d = d.saturating_sub(DELAY_MS_STEP));
+            entity::mutate_component(entity::resources(), delay(), |d| {
+                *d = d.saturating_sub(DELAY_MS_STEP)
+            });
         }
-        
+
         let delay_ms = entity::get_component(entity::resources(), delay()).unwrap_or_default();
         if delay_ms > 0 {
             let deadline = now + Duration::from_millis(delay_ms as u64);
@@ -130,10 +132,15 @@ pub fn main() {
 fn Status(hooks: &mut Hooks) -> Element {
     let mut elements = Vec::new();
 
-    let artificial_delay = use_entity_component(hooks, entity::resources(), delay()).unwrap();
-    elements.push(Text::el(format!("Aritficial delay: {:?}", artificial_delay)));
+    let artificial_delay =
+        use_entity_component(hooks, entity::resources(), delay()).unwrap_or_default();
+    elements.push(Text::el(format!(
+        "Aritficial frame delay: {:?}ms",
+        artificial_delay
+    )));
 
-    let input_latency = use_entity_component(hooks, entity::resources(), local_lag()).unwrap();
+    let input_latency =
+        use_entity_component(hooks, entity::resources(), local_lag()).unwrap_or_default();
     elements.push(Text::el(format!("Input latency: {:?}", input_latency)));
 
     let mut player_latencies = use_query(hooks, (user_id(), input_lag()));

@@ -15,7 +15,8 @@ pub fn main() {
 fn Status(hooks: &mut Hooks) -> Element {
     let mut elements = Vec::new();
 
-    let input_latency = use_entity_component(hooks, entity::resources(), local_lag()).unwrap();
+    let input_latency =
+        use_entity_component(hooks, entity::resources(), local_lag()).unwrap_or_default();
     elements.push(Text::el(format!("Input latency: {:?}", input_latency)));
 
     let mut player_latencies = use_query(hooks, (user_id(), input_lag()));

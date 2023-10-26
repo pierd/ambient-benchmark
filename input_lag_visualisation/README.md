@@ -9,7 +9,7 @@ The delay is added locally to the client and simulates longer frame processing t
 If the squares stop being aligned then some messages were lost.
 
 ## Controls
-AD/left-right = move
-WS/up-down = add or remove delay
-R = reset square positions
-space = toggle square visibility
+- AD/left-right = move
+- WS/up-down = add or remove delay
+- R = reset square positions
+- space = toggle square visibility

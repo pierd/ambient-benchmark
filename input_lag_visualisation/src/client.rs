@@ -20,7 +20,7 @@ use packages::{
     frame_time::components::{frame_time, local_frame_time},
     this::{
         components::{delay, x_translation},
-        messages::Input,
+        messages::{Input, Reset},
     },
 };
 use packages::{
@@ -117,6 +117,13 @@ pub fn main() {
         })
         .unwrap();
 
+        // handle reset
+        if delta.keys.contains(&KeyCode::R) {
+            Reset::new().send_server_reliable();
+            entity::mutate_component(local, translation(), |t| t.x = 0.).unwrap();
+        }
+
+        // handle toggling
         if delta.keys.contains(&KeyCode::Space) {
             entity::mutate_component(entity::resources(), visibility(), |v| {
                 *v = v.wrapping_add(1)
@@ -139,6 +146,7 @@ pub fn main() {
             });
         }
 
+        // handle delay
         if delta.keys.contains(&KeyCode::Up) || delta.keys.contains(&KeyCode::W) {
             entity::mutate_component(entity::resources(), delay(), |d| *d += DELAY_MS_STEP);
         } else if delta.keys.contains(&KeyCode::Down) || delta.keys.contains(&KeyCode::S) {
@@ -146,7 +154,6 @@ pub fn main() {
                 *d = d.saturating_sub(DELAY_MS_STEP)
             });
         }
-
         let delay_ms = entity::get_component(entity::resources(), delay()).unwrap_or_default();
         if delay_ms > 0 {
             let deadline = now + Duration::from_millis(delay_ms as u64);
@@ -171,6 +178,7 @@ If the squares stop being aligned then some messages were lost.
 Controls:
 AD/left-right = move
 WS/up-down = add or remove delay
+R = reset square positions
 space = toggle square visibility
 
 Stats:"#,

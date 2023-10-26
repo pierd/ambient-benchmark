@@ -6,8 +6,8 @@ content = { type = "Playable" }
 ambient_version = "0.3.0"
 
 [dependencies]
-frame_time = { path = "../measure/frame_time" , deployment = "pQupzUywKCb2snfVQOlNR" }
-input_lag = { path = "../measure/input_lag" , deployment = "3rnmwSxiqlaWgXF93Zglgm" }
+frame_time = { path = "../measure/frame_time" , deployment = "Uo7NxFT7iPtMtVpDjoVPr" }
+input_lag = { path = "../measure/input_lag" , deployment = "75kddeCbqDiKAE5Dau2t5Z" }
 
 [components]
 delay = { type = "U32", name = "millis artificially added to frame processing on the client", attributes = ["Debuggable"] }
@@ -16,3 +16,6 @@ visibility = { type = "U8", name = "Square visibility flags", attributes = ["Deb
 
 [messages.Input.fields]
 direction = "F32"
+
+[messages.Reset]
+fields = {}

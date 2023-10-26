@@ -16,7 +16,6 @@ use ambient_api::{
     element::{use_entity_component, use_query},
     prelude::*,
 };
-use packages::input_lag::components::{input_lag, local_lag};
 use packages::{
     frame_time::components::{frame_time, local_frame_time},
     this::{
@@ -24,10 +23,16 @@ use packages::{
         messages::Input,
     },
 };
+use packages::{
+    input_lag::components::{input_lag, local_lag},
+    this::components::visibility,
+};
 
 const X_BOUNDARY: f32 = 20.;
 const Y_BOUNDARY: f32 = X_BOUNDARY;
 const DELAY_MS_STEP: u32 = 5;
+const LOCAL_COLOR: Vec4 = vec4(255., 0., 0., 1.);
+const REMOTE_COLOR: Vec4 = vec4(0., 0., 255., 1.);
 
 #[main]
 pub fn main() {
@@ -77,18 +82,19 @@ pub fn main() {
         });
 
     entity::add_component(entity::resources(), delay(), 0);
+    entity::add_component(entity::resources(), visibility(), 0);
 
     let local = Entity::new()
         .with(cube(), ())
         .with(scale(), Vec3::ONE)
         .with(translation(), Vec3::ZERO)
-        .with(color(), vec4(255., 0., 0., 1.))
+        .with(color(), LOCAL_COLOR)
         .spawn();
     let remote = Entity::new()
         .with(cube(), ())
         .with(scale(), Vec3::ONE)
         .with(translation(), vec3(0., 1., 0.))
-        .with(color(), vec4(0., 0., 255., 1.))
+        .with(color(), REMOTE_COLOR)
         .spawn();
 
     Frame::subscribe(move |_| {
@@ -109,6 +115,19 @@ pub fn main() {
             t.x = entity::get_component(player::get_local(), x_translation()).unwrap_or_default()
         })
         .unwrap();
+
+        if delta.keys.contains(&KeyCode::Space) {
+            entity::mutate_component(entity::resources(), visibility(), |v| {
+                *v = v.wrapping_add(1)
+            })
+            .unwrap();
+            let visibility = entity::get_component(entity::resources(), visibility()).unwrap();
+            println!("{:?}", visibility);
+            entity::mutate_component(local, color(), |c| c.w = 1.0 - (visibility & 1) as f32);
+            entity::mutate_component(remote, color(), |c| {
+                c.w = 1.0 - (visibility >> 1 & 1) as f32
+            });
+        }
 
         if delta.keys.contains(&KeyCode::Up) || delta.keys.contains(&KeyCode::W) {
             entity::mutate_component(entity::resources(), delay(), |d| *d += DELAY_MS_STEP);
@@ -131,6 +150,20 @@ pub fn main() {
 #[element_component]
 fn Status(hooks: &mut Hooks) -> Element {
     let mut elements = Vec::new();
+
+    elements.push(Text::el(
+        r#"The top square is synced with the server and as such it's affected by the input lag.
+The bottom square is controlled directly on the client.
+The delay is added locally to the client and simulates longer frame processing time.
+
+If the squares stop being aligned then some messages were lost.
+
+Controls:
+AD/left-right = move
+WS/up-down = add or remove delay
+space = toggle square visibility
+"#,
+    ));
 
     let artificial_delay =
         use_entity_component(hooks, entity::resources(), delay()).unwrap_or_default();

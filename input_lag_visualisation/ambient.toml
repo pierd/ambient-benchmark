@@ -12,6 +12,7 @@ input_lag = { path = "../measure/input_lag" , deployment = "6QCMD5hZe23eE5lb2Eda
 [components]
 delay = { type = "U32", name = "millis artificially added to frame processing on the client", attributes = ["Debuggable"] }
 x_translation = { type = "F32", name = "X translation of player's square", attributes = ["Debuggable", "Networked"] }
+visibility = { type = "U8", name = "Square visibility flags", attributes = ["Debuggable"] }
 
 [messages.Input.fields]
 direction = "F32"

@@ -1,0 +1,17 @@
+[package]
+id = "inputlagvisualisatidmrkbzo4qmbou"
+name = "Input Lag Visualisation"
+version = "0.0.1"
+content = { type = "Playable" }
+ambient_version = "0.3.0"
+
+[dependencies]
+frame_time = { path = "../measure/frame_time" , deployment = "5juLsmJRM870zibJRhngzU" }
+input_lag = { path = "../measure/input_lag" , deployment = "6vtpqwmFClv1SjFs3xTUmy" }
+
+[components]
+delay = { type = "U32", name = "millis artificially added to frame processing on the client", attributes = ["Debuggable"] }
+x_translation = { type = "F32", name = "X translation of player's square", attributes = ["Debuggable", "Networked"] }
+
+[messages.Input.fields]
+direction = "F32"

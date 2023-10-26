@@ -1,0 +1,18 @@
+[package]
+id = "inputlag3b35bl4llstjejaxmnwmfttt"
+name = "Input Lag"
+version = "0.0.1"
+content = { type = "Asset", code = true }
+ambient_version = "0.3.0"
+
+[components]
+input_timestamp = { type = "Duration", attributes = [ "Networked" ], description = "Timestamp from the last Input message received from player" }
+input_lag = { type = "Duration", attributes = [ "Networked" ], description = "Lag from the last Input message received from player" }
+input_frequency = { type = "Duration", attributes = [ "Resource" ], description = "How frequently should the input messages be sent" }
+smoothing_factor = { type = "U32", attributes = [ "Resource" ], description = "How much smoothed value is affected by the current measurement (lower = more, 1 = just use the current value)" }
+last_processed_timestamp = { type = "Duration", attributes = [ "Resource" ], description = "Last input_timestamp that was processed by the client" }
+local_lag = { type = "Duration", attributes = [ "Resource" ], description = "Current smoothed value of locally perceived input lag" }
+
+[message.Input.fields]
+timestamp = "Duration"
+lag = "Duration"

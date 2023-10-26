@@ -1,0 +1,6 @@
+[package]
+id = "balls4fzsmjovdweubvsh2cxlueseb5s"
+name = "Balls"
+version = "0.0.1"
+content = { type = "Asset", code = true }
+ambient_version = "0.3.0"

@@ -1,0 +1,11 @@
+[package]
+id = "benchmark2aojwbdcwtkk5a6fkdbz4qr"
+name = "Benchmark"
+version = "0.0.1"
+content = { type = "Playable" }
+ambient_version = "0.3.0"
+
+[dependencies]
+balls = { path = "../load/balls" , deployment = "43ykMgKdwva3CR7CmsxXhN" }
+frame_time = { path = "../measure/frame_time" , deployment = "5juLsmJRM870zibJRhngzU" }
+input_lag = { path = "../measure/input_lag" , deployment = "6vtpqwmFClv1SjFs3xTUmy" }

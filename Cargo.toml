@@ -1,0 +1,7 @@
+[workspace]
+default-members = ["benchmark"]
+members = ["benchmark", "input_lag_visualisation", "load/*", "measure/*"]
+resolver = "2"
+
+[workspace.dependencies]
+ambient_api = { git = "https://github.com/AmbientRun/Ambient.git", tag = "v0.3.0" }

@@ -1,0 +1,16 @@
+[package]
+id = "frametime3apukddnpni434aygmk6d2n"
+name = "Frame Time"
+version = "0.0.1"
+content = { type = "Asset", code = true }
+ambient_version = "0.3.0"
+
+[components]
+last_frame_start = { type = "Duration", attributes = [ "Resource" ], description = "Timestamp of the last frame start" }
+smoothing_factor = { type = "U32", attributes = [ "Resource" ], description = "How much smoothed value is affected by the current measurement (lower = more, 1 = just use the current value)" }
+local_frame_time = { type = "Duration", attributes = [ "Resource" ], description = "Smoothed frame duration" }
+frame_time = { type = "Duration", attributes = [ "Networked" ], description = "Smoothed frame duration reported by server/players" }
+report_frequency = { type = "Duration", attributes = [ "Resource" ], description = "How frequently should the input messages be sent" }
+
+[message.Report.fields]
+frame_time = "Duration"

@@ -216,7 +216,7 @@ Stats:"#,
     elements.push(Text::el(format!("Local frame time: {:?}", time)));
     let time = use_entity_component(hooks, entity::synchronized_resources(), frame_time())
         .unwrap_or_default();
-    elements.push(Text::el(format!("Server rame time: {:?}", time)));
+    elements.push(Text::el(format!("Server frame time: {:?}", time)));
     let mut player_frame_times = use_query(hooks, (user_id(), frame_time()));
     player_frame_times.sort_unstable();
     elements.extend(player_frame_times.into_iter().map(|(id, (user_id, time))| {

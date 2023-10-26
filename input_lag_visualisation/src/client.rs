@@ -33,6 +33,7 @@ const Y_BOUNDARY: f32 = X_BOUNDARY;
 const DELAY_MS_STEP: u32 = 5;
 const LOCAL_COLOR: Vec4 = vec4(255., 0., 0., 1.);
 const REMOTE_COLOR: Vec4 = vec4(0., 0., 255., 1.);
+const BLACK_COLOR: Vec4 = vec4(0., 0., 0., 1.);
 
 #[main]
 pub fn main() {
@@ -122,10 +123,19 @@ pub fn main() {
             })
             .unwrap();
             let visibility = entity::get_component(entity::resources(), visibility()).unwrap();
-            println!("{:?}", visibility);
-            entity::mutate_component(local, color(), |c| c.w = 1.0 - (visibility & 1) as f32);
+            entity::mutate_component(local, color(), |c| {
+                *c = if visibility & 0b01 == 0b01 {
+                    BLACK_COLOR
+                } else {
+                    LOCAL_COLOR
+                }
+            });
             entity::mutate_component(remote, color(), |c| {
-                c.w = 1.0 - (visibility >> 1 & 1) as f32
+                *c = if visibility & 0b10 == 0b10 {
+                    BLACK_COLOR
+                } else {
+                    REMOTE_COLOR
+                }
             });
         }
 

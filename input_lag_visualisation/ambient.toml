@@ -6,8 +6,8 @@ content = { type = "Playable" }
 ambient_version = "0.3.0"
 
 [dependencies]
-frame_time = { path = "../measure/frame_time" , deployment = "ZBBwVcY1aGwvX2Y4kXUgQ" }
-input_lag = { path = "../measure/input_lag" , deployment = "6QCMD5hZe23eE5lb2EdaDY" }
+frame_time = { path = "../measure/frame_time" , deployment = "jbHTKbwU6KJwyY7jxz4SR" }
+input_lag = { path = "../measure/input_lag" , deployment = "8xfwR5SIkc4nXIEv5hEB4" }
 
 [components]
 delay = { type = "U32", name = "millis artificially added to frame processing on the client", attributes = ["Debuggable"] }

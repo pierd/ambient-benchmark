@@ -162,7 +162,8 @@ Controls:
 AD/left-right = move
 WS/up-down = add or remove delay
 space = toggle square visibility
-"#,
+
+Stats:"#,
     ));
 
     let artificial_delay =

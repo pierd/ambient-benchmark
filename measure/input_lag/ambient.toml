@@ -2,8 +2,8 @@
 id = "inputlag3b35bl4llstjejaxmnwmfttt"
 name = "Input Lag"
 version = "0.0.1"
-content = { type = "Asset", code = true }
-ambient_version = "0.3.0"
+content = { type = "Tool", code = true }
+ambient_version = "0.3.2-nightly-2023-11-09"
 
 [components]
 input_timestamp = { type = "Duration", attributes = [ "Networked" ], description = "Timestamp from the last Input message received from player" }

@@ -3,11 +3,11 @@ id = "inputlagvisualisatidmrkbzo4qmbou"
 name = "Input Lag Visualisation"
 version = "0.0.1"
 content = { type = "Playable" }
-ambient_version = "0.3.0"
+ambient_version = "0.3.2-nightly-2023-11-09"
 
 [dependencies]
-frame_time = { path = "../measure/frame_time" , deployment = "2CAmigQnd4n5CIyUcMXxpu" }
-input_lag = { path = "../measure/input_lag" , deployment = "6xkBqeX5uh0ZxPWGdzE17e" }
+frame_time = { path = "../measure/frame_time" , deployment = "3RAvqykl77G6PlmVWY7dZ1" }
+input_lag = { path = "../measure/input_lag" , deployment = "2pkcwHtCSX1d2MAPsruajb" }
 
 [components]
 delay = { type = "U32", name = "millis artificially added to frame processing on the client", attributes = ["Debuggable"] }

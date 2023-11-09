@@ -3,7 +3,7 @@ id = "frametime3apukddnpni434aygmk6d2n"
 name = "Frame Time"
 version = "0.0.1"
 content = { type = "Asset", code = true }
-ambient_version = "0.3.0"
+ambient_version = "0.3.2-nightly-2023-11-09"
 
 [components]
 last_frame_start = { type = "Duration", attributes = [ "Resource" ], description = "Timestamp of the last frame start" }

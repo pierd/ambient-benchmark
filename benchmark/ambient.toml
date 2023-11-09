@@ -3,7 +3,7 @@ id = "benchmark2aojwbdcwtkk5a6fkdbz4qr"
 name = "Benchmark"
 version = "0.0.1"
 content = { type = "Playable" }
-ambient_version = "0.3.0"
+ambient_version = "0.3.2-nightly-2023-11-09"
 
 [dependencies]
 balls = { path = "../load/balls" , deployment = "43ykMgKdwva3CR7CmsxXhN" }

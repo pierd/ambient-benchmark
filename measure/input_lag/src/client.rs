@@ -23,7 +23,6 @@ pub fn main() {
         resources,
         Entity::new()
             .with(input_frequency(), Duration::from_secs(1))
-            .with(smoothing_factor(), 16)
             .with(local_lag(), Duration::ZERO)
             .with(last_processed_timestamp(), Duration::ZERO),
     );
@@ -56,7 +55,7 @@ pub fn main() {
         // got a fresh one, mark as processed and process
         entity::set_component(resources, last_processed_timestamp(), last_input);
         let lag = now.saturating_sub(last_input);
-        let factor = entity::get_component(resources, smoothing_factor()).unwrap_or(16);
+        let factor = entity::get_component(resources, smoothing_factor()).unwrap_or(8);
         entity::mutate_component(resources, local_lag(), |old_lag| {
             *old_lag = ((factor - 1) * *old_lag + lag) / factor;
         });

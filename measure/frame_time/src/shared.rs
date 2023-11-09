@@ -15,7 +15,7 @@ pub fn start_measuring_frame_time() {
         entity::set_component(resources, last_frame_start(), now);
 
         let time = now.saturating_sub(last_start);
-        let factor = entity::get_component(resources, smoothing_factor()).unwrap_or(16);
+        let factor = entity::get_component(resources, smoothing_factor()).unwrap_or(8);
         entity::mutate_component(resources, local_frame_time(), |old_frame_time| {
             *old_frame_time = ((factor - 1) * *old_frame_time + time) / factor;
         });

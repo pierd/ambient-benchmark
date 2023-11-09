@@ -1,11 +1,11 @@
-use ambient_api::{
-    core::{messages::Frame, player::components::is_player},
-    prelude::*,
-};
+use ambient_api::{core::player::components::is_player, prelude::*};
 use packages::this::{
     components::{frame_time, local_frame_time, report_frequency},
     messages::Report,
 };
+
+mod shared;
+use shared::*;
 
 #[main]
 pub fn main() {
@@ -41,5 +41,3 @@ pub fn main() {
         }
     });
 }
-
-include!("shared.rs");

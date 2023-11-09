@@ -1,12 +1,15 @@
-pub fn start_measuring_frame_time() {
-    use std::time::SystemTime;
-    use packages::this::components::*;
+use crate::packages::this::components::*;
+use ambient_api::{core::messages::Frame, prelude::*};
+use std::time::SystemTime;
 
+pub fn start_measuring_frame_time() {
     let resources = entity::resources();
     entity::add_component(resources, local_frame_time(), Duration::ZERO);
 
     Frame::subscribe(move |_| {
-        let now = SystemTime::now().duration_since(SystemTime::UNIX_EPOCH).unwrap();
+        let now = SystemTime::now()
+            .duration_since(SystemTime::UNIX_EPOCH)
+            .unwrap();
         let Some(last_start) = entity::get_component(resources, last_frame_start()) else {
             // first frame
             entity::add_component(resources, last_frame_start(), now);
